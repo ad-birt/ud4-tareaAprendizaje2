@@ -10,9 +10,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import entidad.Student;
 
 /**
- * 6. Elimina el estudiante con studentId=2 utilizando session.createQuery
+ * 5. Elimina el estudiante con studentId=1 utilizando session.get
  */
-public class Ejercicio6 {
+public class Ud4TareaAprendizaje2Ejercicio5 {
 
 	public static void main(String[] args) {
 
@@ -32,15 +32,19 @@ public class Ejercicio6 {
 		Session session = sessionFactory.openSession();
 		
 		try {								
+			int studentId = 1;
 			
 			session.beginTransaction();
 			
-			System.out.println("Borrando student id=2");
+			// recupera el estudiante 
+			System.out.println("\nObteniendo estudiante con id: " + studentId);
+			Student myStudent = session.get(Student.class, studentId);
 			
-			session.createMutationQuery("delete from Student where id = :studentId")
-            .setParameter("studentId", 2)
-            .executeUpdate();
-			
+			// borra el estudiante
+			 System.out.println("Borrando el estudiante: " + myStudent);
+			 session.remove(myStudent);
+						
+			// commit de la transacción
 			session.getTransaction().commit();
 			
 			System.out.println("Hecho!");

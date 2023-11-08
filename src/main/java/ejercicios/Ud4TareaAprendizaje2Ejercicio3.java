@@ -1,7 +1,5 @@
 package ejercicios;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -11,10 +9,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import entidad.Student;
 
-public class Ejercicio8 {
+
+public class Ud4TareaAprendizaje2Ejercicio3 {
 
 	/**
-	 * 8. Realiza una consulta utilizando HQL para obtener el estudiante cuyo apellido es xxxx. Pasa el apellido utilizando .setParameter
+	 * 3. Actualiza el nombre del primer estudiante introducido utilizando session.get
 	 */
 	public static void main(String[] args) {
 
@@ -32,20 +31,24 @@ public class Ejercicio8 {
 			    .build();    
 		
 		Session session = sessionFactory.openSession();
-		try {			
+		
+		try {								
+			int studentId = 1;
 			
 			session.beginTransaction();
-						
-			// query de students: lastName='Lopez' como parámetro
-		    List<Student> theStudents = session.createSelectionQuery(
-		            "from Student s where s.lastName = :lastName", Student.class)
-		        .setParameter("lastName", "Lopez")
-		        .getResultList();
 			
-			System.out.println("\n\nEstudiantes que tienen el apellido Lopez pasado por parámetro");
-			displayStudents(theStudents);
+			// obtiene el estudiante a partir de la id: primary key
+			System.out.println("\nObteniendo estudiante con id: " + studentId);
 			
-			System.out.println("Hecho!");
+			Student myStudent = session.get(Student.class, studentId);
+			
+			System.out.println("Actualizando estudiante");
+			myStudent.setFirstName("Pako");
+			
+			// hace commit de la transaccion
+			session.getTransaction().commit();
+			
+			System.out.println("Hecho!"); 
 		}
 		catch ( Exception e ) {
 			// rollback ante alguna excepción
@@ -59,10 +62,6 @@ public class Ejercicio8 {
 		}
 	}
 
-	private static void displayStudents(List<Student> theStudents) {
-		for (Student tempStudent : theStudents) {
-			System.out.println(tempStudent);
-		}
-	}
-
 }
+
+

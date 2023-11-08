@@ -11,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import entidad.Student;
 
-public class Ejercicio9 {
+public class Ud4TareaAprendizaje2Ejercicio9 {
 
 	/**
 	 * 9. Realiza una consulta SQL Nativa con session.createNativeQuery para obtener el estudiante cuyo apellido es xxxx.

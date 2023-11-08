@@ -9,7 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import entidad.Student;
 
-public class Ejercicio1 {
+public class Ud4TareaAprendizaje2Ejercicio1 {
 
 	/**
 	 * 1. Crea un nuevo objeto Student y guárdalo en la base de datos

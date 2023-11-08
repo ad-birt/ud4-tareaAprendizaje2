@@ -1,5 +1,7 @@
 package ejercicios;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -9,11 +11,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import entidad.Student;
 
-
-public class Ejercicio3 {
+public class Ud4TareaAprendizaje2Ejercicio7 {
 
 	/**
-	 * 3. Actualiza el nombre del primer estudiante introducido utilizando session.get
+	 * 7. Realiza una consulta utilizando HQL para mostrar toda la lista de estudiantes.
 	 */
 	public static void main(String[] args) {
 
@@ -32,23 +33,20 @@ public class Ejercicio3 {
 		
 		Session session = sessionFactory.openSession();
 		
-		try {								
-			int studentId = 1;
+		try {			
 			
 			session.beginTransaction();
 			
-			// obtiene el estudiante a partir de la id: primary key
-			System.out.println("\nObteniendo estudiante con id: " + studentId);
+			// obtiene todos los estudiantes
+			List<Student> theStudents = session.createSelectionQuery("from Student", Student.class)
+                    .getResultList();
 			
-			Student myStudent = session.get(Student.class, studentId);
+			// muestra los estudiantes
+			displayStudents(theStudents);
 			
-			System.out.println("Actualizando estudiante");
-			myStudent.setFirstName("Pako");
-			
-			// hace commit de la transaccion
 			session.getTransaction().commit();
 			
-			System.out.println("Hecho!"); 
+			System.out.println("Hecho!");
 		}
 		catch ( Exception e ) {
 			// rollback ante alguna excepción
@@ -62,6 +60,10 @@ public class Ejercicio3 {
 		}
 	}
 
+	private static void displayStudents(List<Student> theStudents) {
+		for (Student tempStudent : theStudents) {
+			System.out.println(tempStudent);
+		}
+	}
+
 }
-
-

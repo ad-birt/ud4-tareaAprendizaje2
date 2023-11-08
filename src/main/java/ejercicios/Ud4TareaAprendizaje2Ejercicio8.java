@@ -11,10 +11,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import entidad.Student;
 
-public class Ejercicio7 {
+public class Ud4TareaAprendizaje2Ejercicio8 {
 
 	/**
-	 * 7. Realiza una consulta utilizando HQL para mostrar toda la lista de estudiantes.
+	 * 8. Realiza una consulta utilizando HQL para obtener el estudiante cuyo apellido es xxxx. Pasa el apellido utilizando .setParameter
 	 */
 	public static void main(String[] args) {
 
@@ -32,19 +32,18 @@ public class Ejercicio7 {
 			    .build();    
 		
 		Session session = sessionFactory.openSession();
-		
 		try {			
 			
 			session.beginTransaction();
+						
+			// query de students: lastName='Lopez' como parámetro
+		    List<Student> theStudents = session.createSelectionQuery(
+		            "from Student s where s.lastName = :lastName", Student.class)
+		        .setParameter("lastName", "Lopez")
+		        .getResultList();
 			
-			// obtiene todos los estudiantes
-			List<Student> theStudents = session.createSelectionQuery("from Student", Student.class)
-                    .getResultList();
-			
-			// muestra los estudiantes
+			System.out.println("\n\nEstudiantes que tienen el apellido Lopez pasado por parámetro");
 			displayStudents(theStudents);
-			
-			session.getTransaction().commit();
 			
 			System.out.println("Hecho!");
 		}

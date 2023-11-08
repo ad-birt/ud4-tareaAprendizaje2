@@ -10,10 +10,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import entidad.Student;
 
 
-public class Ejercicio2 {
+public class Ud4TareaAprendizaje2Ejercicio4 {
 
 	/**
-	 * 2. Guarda un nuevo objeto Student y posteriormente recupéralo utilizando session.get
+	 * 4. Actualiza el email a todos los estudiantes utilizando session.createQuery
 	 */
 	public static void main(String[] args) {
 
@@ -32,39 +32,20 @@ public class Ejercicio2 {
 		
 		Session session = sessionFactory.openSession();
 		
-		try {			
-			// crea un nuevo objeto Student
-			System.out.println("Creando nuevo objeto Student...");
-			Student tempStudent = new Student("Ane", "Uriarte", "ane@birt.eus");
-			
-			// comienza la transacción
+		try {								
+		
 			session.beginTransaction();
 			
-			// guarda el estudiante
-			System.out.println("Guardando el estudiante...");
-			System.out.println(tempStudent);
-			session.persist(tempStudent);
+			// Actualiza el email a todos los estudiantes
+			System.out.println("Actualiza el email a todos los estudiantes");
 			
-			// hace commit de la transacción
+			session.createMutationQuery("update Student set email = :email")
+		    .setParameter("email", "birt@gmail.com")
+		    .executeUpdate();
+						
 			session.getTransaction().commit();
-			
-			// busca el id (primary key del estudiante introducido)
-			System.out.println("Estudiante guardado con id: " + tempStudent.getId());
-			
-			// comienza una nueva transaccion
-			session.beginTransaction();
-			
-			// obtiene el estudiante en base a la id: primary key
-			System.out.println("\nObteniendo estudiante con id: " + tempStudent.getId());
-			
-			Student myStudent = session.get(Student.class, tempStudent.getId());
-			
-			System.out.println("Get completado: " + myStudent);
-			
-			// commit de la  transaccion
-			session.getTransaction().commit();
-			
-			System.out.println("Hecho!");
+
+			System.out.println("Hecho!"); 
 		}
 		catch ( Exception e ) {
 			// rollback ante alguna excepción
@@ -79,8 +60,5 @@ public class Ejercicio2 {
 	}
 
 }
-
-
-
 
 
